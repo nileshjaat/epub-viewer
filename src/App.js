@@ -15,8 +15,8 @@ import UploadIcon from './assets/upload.png'
 
 const storage = global.localStorage || null
 
-const DEMO_URL = '/files/alice.epub'
-const DEMO_NAME = 'Alice in wonderland'
+const DEMO_URL = '/files/english.epub'
+const DEMO_NAME = 'Gold stars english'
 
 const GlobalStyle = createGlobalStyle`
   * {
