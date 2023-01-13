@@ -15,8 +15,8 @@ import UploadIcon from './assets/upload.png'
 
 const storage = global.localStorage || null
 
-const DEMO_URL = '/files/rapunzel.epub'
-const DEMO_NAME = 'Rapunzel'
+const DEMO_URL = '/files/alice.epub'
+const DEMO_NAME = 'Alice in wonderland'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -53,7 +53,7 @@ class App extends Component {
       location:
         storage && storage.getItem('epub-location')
           ? storage.getItem('epub-location')
-          : 0,
+          : 2,
       localFile: null,
       localName: null,
       largeText: false
