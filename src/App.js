@@ -121,24 +121,6 @@ class App extends Component {
     return (
       <Container>
         <GlobalStyle />
-        <Bar>
-          <ButtonWrapper>
-            <FileReaderInput as="buffer" onChange={this.handleChangeFile}>
-              <GenericButton>
-                Upload local epub
-                <img
-                  src={UploadIcon}
-                  alt="upload"
-                  style={{ marginLeft: '6px' }}
-                />
-              </GenericButton>
-            </FileReaderInput>
-            <GenericButton onClick={this.toggleFullscreen}>
-              {fullscreen ? null : 'Use full browser window'}
-              <img src={CloseIcon} alt="close" style={{ marginLeft: '6px' }} />
-            </GenericButton>
-          </ButtonWrapper>
-        </Bar>
         <ReaderContainer fullscreen={fullscreen}>
           <ReactReader
             url={localFile || DEMO_URL}
