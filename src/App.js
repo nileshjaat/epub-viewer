@@ -80,7 +80,8 @@ class App extends Component {
         location
       },
       () => {
-        storage && storage.setItem('epub-location', location)
+        // storage && storage.setItem('epub-location', location)
+        storage && storage.removeItem('epub-location')
       }
     )
   }
@@ -100,6 +101,10 @@ class App extends Component {
   getRendition = rendition => {
     // Set inital font-size, and add a pointer to rendition for later updates
     const { largeText } = this.state
+    storage && storage.removeItem('epub-location')
+    this.setState({
+      location: null
+    })
     this.rendition = rendition
     rendition.themes.fontSize('140%')
   }
