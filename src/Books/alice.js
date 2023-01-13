@@ -12,6 +12,11 @@ import {
 } from '../Components'
 import CloseIcon from '../assets/close.png'
 import UploadIcon from '../assets/upload.png'
+import { useParams } from 'react-router-dom'
+
+function withParams(Component) {
+  return props => <Component {...props} params={useParams()} />
+}
 
 const storage = global.localStorage || null
 
@@ -53,7 +58,7 @@ class Alice extends Component {
       location:
         storage && storage.getItem('epub-location')
           ? storage.getItem('epub-location')
-          : 2,
+          : 0,
       localFile: null,
       localName: null,
       largeText: false
@@ -80,7 +85,8 @@ class Alice extends Component {
         location
       },
       () => {
-        storage && storage.setItem('epub-location', location)
+        // storage && storage.setItem('epub-location', location)
+        storage && storage.removeItem('epub-location')
       }
     )
   }
@@ -100,6 +106,10 @@ class Alice extends Component {
   getRendition = rendition => {
     // Set inital font-size, and add a pointer to rendition for later updates
     const { largeText } = this.state
+    storage && storage.removeItem('epub-location')
+    this.setState({
+      location: null
+    })
     this.rendition = rendition
     rendition.themes.fontSize('140%')
   }
@@ -119,14 +129,18 @@ class Alice extends Component {
 
   render() {
     const { fullscreen, location, localFile, localName } = this.state
-
+    const url = `/files/${this.props.params.name}.epub`
+    const name = `${this.props.params.name
+      .replaceAll('-', ' ')
+      .charAt(0)
+      .toUpperCase()}${this.props.params.name.replaceAll('-', ' ').slice(1)}`
     return (
       <Container>
         <GlobalStyle />
         <ReaderContainer fullscreen={fullscreen}>
           <ReactReader
-            url={localFile || DEMO_URL}
-            title={localName || DEMO_NAME}
+            url={localFile || url}
+            title={localName || name}
             location={location}
             locationChanged={this.onLocationChanged}
             getRendition={this.getRendition}
@@ -137,4 +151,4 @@ class Alice extends Component {
   }
 }
 
-export default Alice
+export default withParams(Alice)
