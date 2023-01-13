@@ -101,7 +101,7 @@ class App extends Component {
     // Set inital font-size, and add a pointer to rendition for later updates
     const { largeText } = this.state
     this.rendition = rendition
-    rendition.themes.fontSize(largeText ? '140%' : '100%')
+    rendition.themes.fontSize('140%')
   }
   handleChangeFile = (event, results) => {
     if (results.length > 0) {
@@ -147,9 +147,6 @@ class App extends Component {
             locationChanged={this.onLocationChanged}
             getRendition={this.getRendition}
           />
-          <FontSizeButton onClick={this.onToggleFontSize}>
-            Toggle font-size
-          </FontSizeButton>
         </ReaderContainer>
       </Container>
     )
