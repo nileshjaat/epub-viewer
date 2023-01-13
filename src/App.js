@@ -4,7 +4,7 @@ import Bedtime from './Books/bedtime'
 
 const router = createBrowserRouter([
   {
-    path: '/book/alice-in-wonderland',
+    path: '/alice-in-wonderland',
     element: <Alice />
   },
   {
