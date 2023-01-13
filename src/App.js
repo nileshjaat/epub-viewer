@@ -53,7 +53,7 @@ class App extends Component {
       location:
         storage && storage.getItem('epub-location')
           ? storage.getItem('epub-location')
-          : 2,
+          : 0,
       localFile: null,
       localName: null,
       largeText: false
