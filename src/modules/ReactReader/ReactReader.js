@@ -1,8 +1,9 @@
-import React, { PureComponent } from 'react'
+import React, { Component, PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { useSwipeable } from 'react-swipeable'
 import EpubView from '../EpubView/EpubView'
 import defaultStyles from './style'
+import { Swipe } from 'react-swipe-component'
 
 const Swipeable = ({ children, ...props }) => {
   const handlers = useSwipeable(props)
@@ -30,15 +31,58 @@ TocItem.propTypes = {
   styles: PropTypes.object
 }
 
-class ReactReader extends PureComponent {
+class ReactReader extends Component {
   constructor(props) {
     super(props)
     this.readerRef = React.createRef()
     this.state = {
       expandedToc: false,
-      toc: false
+      toc: false,
+      touchDevice: true
     }
   }
+
+  componentDidMount() {
+    // 현재 epub 파일을 로딩해서 컴포넌트로 받아오는데 평균 최소 1초는 걸린다. (크기, 상황에 따라 다르겠지만)
+    setTimeout(() => {
+      console.log(
+        'iframe',
+        document.getElementsByTagName('iframe')[0].className
+      )
+      let iframe = document.getElementsByTagName('iframe')[0]
+      if (iframe && this.state.touchDevice === true) {
+        // 만약 state에 touchDevice 여부가 true라면 iframe에 className을 주입해서 마우스 이벤트를 막는다.
+        iframe.className = 'mobile'
+      } else {
+        alert('Page loading failed.')
+      }
+    }, 2000)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    // touch action을 위한 iframe className 조작
+    let iframe = document.getElementsByTagName('iframe')[0]
+    if (this.state.touchDevice === true) {
+      // iframe.className = 'mobile'
+    }
+    return true // false를 반환하면 render()는 호출되지 않는다.
+  }
+
+  componentDidUpdate() {
+    let iframe = document.getElementsByTagName('iframe')[0]
+    if (this.state.touchDevice === true) {
+      // iframe.className = 'mobile'
+    }
+  }
+
+  // Swipe 함수
+  onSwipeLeftListener = () => {
+    this.next()
+  }
+  onSwipeRightListener = () => {
+    this.prev()
+  }
+
   toggleToc = () => {
     this.setState({
       expandedToc: !this.state.expandedToc
@@ -152,10 +196,17 @@ class ReactReader extends PureComponent {
         >
           {showToc && this.renderTocToggle()}
           <div style={readerStyles.titleArea}>{title}</div>
-          <Swipeable
+          {/* <Swipeable
             onSwipedRight={this.prev}
             onSwipedLeft={this.next}
             trackMouse
+          > */}
+          <Swipe
+            style={{ position: 'relative', height: '100%', width: '100%' }}
+            onSwipedLeft={this.onSwipeLeftListener}
+            onSwipedRight={this.onSwipeRightListener}
+            detectMouse="false"
+            detectTouch="true"
           >
             <div style={readerStyles.reader}>
               <EpubView
@@ -168,8 +219,9 @@ class ReactReader extends PureComponent {
               />
               {swipeable && <div style={readerStyles.swipeWrapper} />}
             </div>
-          </Swipeable>
-          <button
+          </Swipe>
+          {/* </Swipeable> */}
+          {/* <button
             style={Object.assign({}, readerStyles.arrow, readerStyles.prev)}
             onClick={this.prev}
           >
@@ -180,7 +232,7 @@ class ReactReader extends PureComponent {
             onClick={this.next}
           >
             ›
-          </button>
+          </button> */}
         </div>
         {showToc && toc && this.renderToc()}
       </div>
