@@ -217,7 +217,7 @@ class ReactReader extends Component {
                 tocChanged={this.onTocChange}
                 locationChanged={locationChanged}
               />
-              {swipeable && <div style={readerStyles.swipeWrapper} />}
+              <div style={readerStyles.swipeWrapper} />
             </div>
           </Swipe>
           {/* </Swipeable> */}

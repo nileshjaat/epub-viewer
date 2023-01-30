@@ -25,9 +25,9 @@ const reactReaderStyles = {
   reader: {
     position: 'absolute',
     top: 50,
-    left: 50,
+    left: 0,
     bottom: 20,
-    right: 50
+    right: 0
   },
   swipeWrapper: {
     position: 'absolute',
