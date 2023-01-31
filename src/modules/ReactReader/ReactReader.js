@@ -45,16 +45,12 @@ class ReactReader extends Component {
   componentDidMount() {
     // 현재 epub 파일을 로딩해서 컴포넌트로 받아오는데 평균 최소 1초는 걸린다. (크기, 상황에 따라 다르겠지만)
     setTimeout(() => {
-      console.log(
-        'iframe',
-        document.getElementsByTagName('iframe')[0].className
-      )
       let iframe = document.getElementsByTagName('iframe')[0]
       if (iframe && this.state.touchDevice === true) {
         // 만약 state에 touchDevice 여부가 true라면 iframe에 className을 주입해서 마우스 이벤트를 막는다.
         iframe.className = 'mobile'
       } else {
-        alert('Page loading failed.')
+        // alert('Page loading failed.')
       }
     }, 2000)
   }

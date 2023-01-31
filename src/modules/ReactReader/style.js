@@ -100,6 +100,7 @@ const reactReaderStyles = {
     cursor: 'pointer'
   },
   tocButton: {
+    zIndex: 1,
     background: 'none',
     border: 'none',
     width: 32,
